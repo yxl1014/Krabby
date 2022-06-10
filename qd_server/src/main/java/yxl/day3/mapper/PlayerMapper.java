@@ -1,20 +1,23 @@
 package yxl.day3.mapper;
 
-import org.apache.ibatis.annotations.*;
-import yxl.day3.entity.RegisterCard;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import yxl.day3.entity.PlayerCard;
 
 @Mapper
 public interface PlayerMapper {
 
-    @Select("SELECT id,uid,y,m,maps FROM register WHERE uid = #{uid} and y = #{y} and m = #{m}")
-    public RegisterCard findRegisterCardByUidAndYAndM(@Param("uid") int uid, @Param("y") int y, @Param("m") int m);
+    @Insert("INSERT INTO player(uname,upwd,serverId) values(#{uname},#{upwd},#{serverId}")
+    int insertPlayer(@Param("uname") String uname, @Param("upwd") String upwd, @Param("serverId") int serverid);
 
-    @Insert("INSERT INTO register(uid,y,m,maps) VALUES(#{uid},#{y},#{m},#{maps})")
-    void insertRegister(@Param("uid") int uid, @Param("y") int y, @Param("m") int m,@Param("maps")int maps);
+    @Select("SELECT id FROM player WHERE uname=#{uname} AND upwd = #{upwd}")
+    Integer findIdByUnameAndUpwd(@Param("uname") String uname, @Param("upwd") String upwd);
 
-    @Update("UPDATE register SET maps = #{map} WHERE uid = #{uid} and y = #{y} and m = #{m}")
-    void updateMapsByUidAndYAndM(@Param("map") int map, @Param("uid") int uid, @Param("y") int y, @Param("m") int m);
+    @Select("SELECT COUNT(1) FROM player WHERE uname=#{uname}")
+    Integer findCOUNTByUname(@Param("uname") String uname);
 
-    @Select("SELECT id,uid,y,m,maps FROM register WHERE id = #{id}")
-    RegisterCard findRegisterCardById(@Param("id")int id);
+    @Select("SELECT id,uname,upwd,serverID FROM player WHERE id=#{id}")
+    PlayerCard findIdById(@Param("id") int id);
 }

@@ -14,7 +14,7 @@ public class PlayerServer {
 
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-    private final String url = "http://localhost:14253/register";
+    private final String url = "http://localhost:14253/";
 
     public void register(int uid, String time) throws ParseException {
         registerBuilder.setUid(uid);
@@ -24,11 +24,11 @@ public class PlayerServer {
         System.out.println(register);
 
         byte[] registerbyte = register.toByteArray();
-        String result = sendHttp(registerbyte);
+        String result = sendHttp(registerbyte,"register");
         System.out.println(result);
     }
 
-    public void register(int uid){
+    public void register(int uid) {
         registerBuilder.setUid(uid);
         registerBuilder.setTime(System.currentTimeMillis());
 
@@ -36,17 +36,17 @@ public class PlayerServer {
         System.out.println(register);
 
         byte[] registerbyte = register.toByteArray();
-        String result = sendHttp(registerbyte);
+        String result = sendHttp(registerbyte,"register");
         System.out.println(result);
     }
 
 
-    private String sendHttp(byte[] data) {
+    private String sendHttp(byte[] data,String controller) {
         OutputStream out = null;
         BufferedReader in = null;
         StringBuilder result = new StringBuilder();
         try {
-            URL realUrl = new URL(url);
+            URL realUrl = new URL(url + controller);
             // 打开和URL之间的连接
             HttpURLConnection connection = (HttpURLConnection) realUrl.openConnection();
 
