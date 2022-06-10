@@ -9,14 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>qd_server</artifactId>
+    <artifactId>proto_enum_server</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
-
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -31,4 +29,5 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
+
 </project>

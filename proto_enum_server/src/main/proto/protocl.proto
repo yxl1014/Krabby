@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+// 指定模板类的包路径
+option java_package = "yxl.day4.dto";
+// 指定模板类的名称，名称必须是有实际业务意义的
+option java_outer_classname = "ProtoclProto";
+
+enum ProtoclType{
+  C2S_None = 0;//空
+  C2S_Pick = 1;//拾取
+  S2C_Pick = 2;//收取返回
+  C2S_Throw = 3;//扔掉
+  S2C_Throw = 4;//扔掉返回
+  C2S_Destroy = 5;//销毁
+  S2C_Destroy = 6;//销毁返回
+  C2S_Give = 7;//给别人
+  S2C_Give = 8;//给别人返回
+  C2S_Obtain = 9;//获取道具掉落信息
+  S2C_Obtain = 10;//掉落信息返回
+}
+
+message protocl{
+  ProtoclType type = 1;//协议类型
+  int32 id = 2;//物品id
+  int32 uid = 3;//用户id
+  bool status = 4;//返回状态
+  string proJson = 5;//数据 道具数据或者错误信息。
+  int32 guid = 6;//给予用户id
+}
