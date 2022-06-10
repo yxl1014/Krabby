@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+// 指定模板类的包路径
+option java_package = "yxl.day3.dto";
+// 指定模板类的名称，名称必须是有实际业务意义的
+option java_outer_classname = "RankProto";
+
+
+message rank{
+  int32 serverId = 1;
+  int32 uid = 2;
+  int32 uid2 = 3;
+  int32 rank = 4;
+}

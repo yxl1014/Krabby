@@ -9,8 +9,8 @@ import yxl.day3.entity.PlayerCard;
 @Mapper
 public interface PlayerMapper {
 
-    @Insert("INSERT INTO player(uname,upwd,serverId) values(#{uname},#{upwd},#{serverId}")
-    int insertPlayer(@Param("uname") String uname, @Param("upwd") String upwd, @Param("serverId") int serverid);
+    @Insert("INSERT INTO player(uname,upwd,serverId) values(#{uname},#{upwd},#{serverId})")
+    int insertPlayer(@Param("uname") String uname, @Param("upwd") String upwd, @Param("serverId") int serverId);
 
     @Select("SELECT id FROM player WHERE uname=#{uname} AND upwd = #{upwd}")
     Integer findIdByUnameAndUpwd(@Param("uname") String uname, @Param("upwd") String upwd);

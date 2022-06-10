@@ -2,10 +2,14 @@ package yxl.day3.service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import yxl.day3.controller.PlayerController;
+import yxl.day3.entity.PlayerCard;
 import yxl.day3.entity.ServerCard;
 import yxl.day3.mapper.PlayerMapper;
+import yxl.day3.mapper.RankingMapper;
 import yxl.day3.mapper.ServersMapper;
 import yxl.day3.service.PlayerService;
+import yxl.day3.service.RankService;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -16,9 +20,13 @@ public class PlayerServiceImpl implements PlayerService {
     @Autowired
     private ServersMapper serversMapper;
 
+    @Autowired
+    private RankService rankService;
+
     @Override
     public int login(String uname, String upwd) {
-        return playerMapper.findIdByUnameAndUpwd(uname, upwd);
+        Integer i = playerMapper.findIdByUnameAndUpwd(uname, upwd);
+        return i != null ? i : -1;
     }
 
     @Override
@@ -34,6 +42,13 @@ public class PlayerServiceImpl implements PlayerService {
         if (count > 0)
             return false;
 
-        return playerMapper.insertPlayer(uname, upwd, serverId) == 1;
+        int ok1 = playerMapper.insertPlayer(uname, upwd, serverId);
+
+
+        int id = playerMapper.findIdByUnameAndUpwd(uname, upwd);
+        boolean ok2 = rankService.insertRank(id, serverId);
+
+
+        return ok1 == 1 && ok2;
     }
 }

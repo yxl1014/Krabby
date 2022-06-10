@@ -1,6 +1,9 @@
 package yxl.day3.server;
 
+import yxl.day3.dto.PlayerProto;
+import yxl.day3.dto.RankProto;
 import yxl.day3.dto.RegisterProto;
+import yxl.day3.dto.ServerProto;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -11,6 +14,12 @@ import java.text.SimpleDateFormat;
 public class PlayerServer {
 
     private final RegisterProto.register.Builder registerBuilder = RegisterProto.register.newBuilder();
+
+    private final PlayerProto.player.Builder playerBuilder = PlayerProto.player.newBuilder();
+
+    private final ServerProto.server.Builder serverbuilder = ServerProto.server.newBuilder();
+
+    private final RankProto.rank.Builder rankBuilder = RankProto.rank.newBuilder();
 
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -24,7 +33,7 @@ public class PlayerServer {
         System.out.println(register);
 
         byte[] registerbyte = register.toByteArray();
-        String result = sendHttp(registerbyte,"register");
+        String result = sendHttp(registerbyte, "register");
         System.out.println(result);
     }
 
@@ -33,15 +42,66 @@ public class PlayerServer {
         registerBuilder.setTime(System.currentTimeMillis());
 
         RegisterProto.register register = registerBuilder.build();
-        System.out.println(register);
-
         byte[] registerbyte = register.toByteArray();
-        String result = sendHttp(registerbyte,"register");
+        String result = sendHttp(registerbyte, "register");
+        System.out.println(result);
+    }
+
+    public void login(String name, String pwd) {
+        playerBuilder.setUname(name);
+        playerBuilder.setUpwd(pwd);
+
+        byte[] date = playerBuilder.build().toByteArray();
+        String result = sendHttp(date, "login");
+        System.out.println(result);
+    }
+
+    public void logon(String name, String pwd, int serverId) {
+        playerBuilder.setUname(name);
+        playerBuilder.setUpwd(pwd);
+        playerBuilder.setServerId(serverId);
+
+        byte[] date = playerBuilder.build().toByteArray();
+        String result = sendHttp(date, "logon");
+        System.out.println(result);
+    }
+
+    public void addServer(String name) {
+        serverbuilder.setServerName(name);
+
+        byte[] date = serverbuilder.build().toByteArray();
+        String result = sendHttp(date, "addServer");
+        System.out.println(result);
+    }
+
+    public void findIdByServerName(String name) {
+        serverbuilder.setServerName(name);
+
+        byte[] date = serverbuilder.build().toByteArray();
+        String result = sendHttp(date, "findIdByServerName");
+        System.out.println(result);
+    }
+
+    public void getRanks(int uid, int serverID) {
+        rankBuilder.setUid(uid);
+        rankBuilder.setServerId(serverID);
+
+        byte[] date = rankBuilder.build().toByteArray();
+        String result = sendHttp(date, "getRanks");
+        System.out.println(result);
+    }
+
+    public void fight(int uid1, int uid2) {
+        rankBuilder.setUid(uid1);
+        rankBuilder.setUid2(uid2);
+
+        byte[] date = rankBuilder.build().toByteArray();
+        String result = sendHttp(date, "fight");
         System.out.println(result);
     }
 
 
-    private String sendHttp(byte[] data,String controller) {
+    private String sendHttp(byte[] data, String controller) {
         OutputStream out = null;
         BufferedReader in = null;
         StringBuilder result = new StringBuilder();

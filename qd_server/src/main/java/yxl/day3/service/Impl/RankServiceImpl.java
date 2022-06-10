@@ -49,7 +49,7 @@ public class RankServiceImpl implements RankService {
     public boolean changeRank(int uid1, int uid2) {
 
         PlayerCard p1 = playerMapper.findIdById(uid1);
-        PlayerCard p2 = playerMapper.findIdById(uid1);
+        PlayerCard p2 = playerMapper.findIdById(uid2);
         if (uid1 <= 0 || uid2 <= 0) {
             //log.error;
             return false;
@@ -57,7 +57,7 @@ public class RankServiceImpl implements RankService {
 
         //判断用户是否存在
         RankingCard rr1 = rankingMapper.findRankCardByUidAndServerId(p1.getId(), p1.getServerId());
-        RankingCard rr2 = rankingMapper.findRankCardByUidAndServerId(p1.getId(), p1.getServerId());
+        RankingCard rr2 = rankingMapper.findRankCardByUidAndServerId(p2.getId(), p2.getServerId());
         if (rr1 == null || rr2 == null) {
             //Log.error user is not exists;
             return false;
@@ -196,7 +196,7 @@ public class RankServiceImpl implements RankService {
         List<RankingCard> serverRank = rankingMapper.findAllByServerId(p.getServerId());
 
         List<RankingCard> first = new ArrayList<>();
-        for (int i = 0; i < 10 && serverRank.size() >= 10; i++) {
+        for (int i = 0; i < 10 && serverRank.size() > i; i++) {
             first.add(serverRank.get(i));
         }
 
