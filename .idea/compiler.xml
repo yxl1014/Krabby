@@ -7,7 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="hero_proto" />
         <module name="qd_client" />
+        <module name="hero_proto_client" />
         <module name="qd_server" />
         <module name="proto_enum_server" />
         <module name="proto_enum_client" />

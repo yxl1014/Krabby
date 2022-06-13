@@ -13,6 +13,8 @@
         <module>qd_client</module>
         <module>proto_enum_server</module>
         <module>proto_enum_client</module>
+        <module>hero_proto</module>
+        <module>hero_proto_client</module>
     </modules>
 
     <properties>
