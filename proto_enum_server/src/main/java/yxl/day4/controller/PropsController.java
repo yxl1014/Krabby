@@ -97,8 +97,37 @@ public class PropsController {
                     .setType(ProtoclProto.ProtoclType.S2C_Obtain)
                     .setProJson("非法访问")
                     .build().toByteArray();
-
         }
         return propsService.obtain(protocl.getUid());
+    }
+
+    @PostMapping("show")
+    @ResponseBody
+    public byte[] show(@RequestBody byte[] data) throws InvalidProtocolBufferException {
+        ProtoclProto.protocl protocl = ProtoclProto.protocl.parseFrom(data);
+
+        if (protocl.getType() != ProtoclProto.ProtoclType.C2S_Show) {
+            return ProtoclProto.protocl.newBuilder()
+                    .setStatus(false)
+                    .setType(ProtoclProto.ProtoclType.S2C_Show)
+                    .setProJson("非法访问")
+                    .build().toByteArray();
+        }
+        return propsService.show(protocl.getUid());
+    }
+
+    @PostMapping("showNoPick")
+    @ResponseBody
+    public byte[] showNoPick(@RequestBody byte[] data) throws InvalidProtocolBufferException {
+        ProtoclProto.protocl protocl = ProtoclProto.protocl.parseFrom(data);
+
+        if (protocl.getType() != ProtoclProto.ProtoclType.C2S_ShowNoPick) {
+            return ProtoclProto.protocl.newBuilder()
+                    .setStatus(false)
+                    .setType(ProtoclProto.ProtoclType.S2C_ShowNoPick)
+                    .setProJson("非法访问")
+                    .build().toByteArray();
+        }
+        return propsService.showNoPick();
     }
 }

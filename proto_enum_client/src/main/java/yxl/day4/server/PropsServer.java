@@ -25,8 +25,63 @@ public class PropsServer {
         byte[] result = sendHttp(date, "obtain");
 
         ProtoclProto.protocl protocl = ProtoclProto.protocl.parseFrom(result);
+
         if (protocl.getType() != ProtoclProto.ProtoclType.S2C_Obtain)
             System.out.println("获取失败");
+        System.out.println(protocl.getProJson());
+    }
+
+    public void show(int uid) throws InvalidProtocolBufferException {
+        builder.clear();
+
+        builder.setType(ProtoclProto.ProtoclType.C2S_Show);
+        builder.setUid(uid);
+
+        byte[] date = builder.build().toByteArray();
+        byte[] result = sendHttp(date, "show");
+
+        ProtoclProto.protocl protocl = ProtoclProto.protocl.parseFrom(result);
+
+        if (protocl.getType() != ProtoclProto.ProtoclType.S2C_Show)
+            System.out.println("获取失败");
+
+        System.out.println(protocl.getProJson());
+    }
+
+    public void pick(int id, int uid) throws InvalidProtocolBufferException {
+        builder.clear();
+
+        builder.setType(ProtoclProto.ProtoclType.C2S_Pick);
+        builder.setId(id);
+        builder.setUid(uid);
+
+        byte[] date = builder.build().toByteArray();
+        byte[] result = sendHttp(date, "pick");
+
+        ProtoclProto.protocl protocl = ProtoclProto.protocl.parseFrom(result);
+
+        if (protocl.getType() != ProtoclProto.ProtoclType.S2C_Pick)
+            System.out.println("获取失败");
+        System.out.println(protocl.getStatus());
+        System.out.println(protocl.getProJson());
+    }
+
+    public void pthrow(int id, int uid) throws InvalidProtocolBufferException {
+        builder.clear();
+
+        builder.setType(ProtoclProto.ProtoclType.C2S_Throw);
+        builder.setId(id);
+        builder.setUid(uid);
+
+        byte[] date = builder.build().toByteArray();
+        byte[] result = sendHttp(date, "throw");
+
+        ProtoclProto.protocl protocl = ProtoclProto.protocl.parseFrom(result);
+
+        if (protocl.getType() != ProtoclProto.ProtoclType.S2C_Throw)
+            System.out.println("获取失败");
+
+        System.out.println(protocl.getStatus());
         System.out.println(protocl.getProJson());
     }
 
@@ -34,7 +89,8 @@ public class PropsServer {
     private byte[] sendHttp(byte[] data, String controller) {
         OutputStream out = null;
         InputStream in = null;
-        byte[] result = new byte[1024];
+        byte[] temp = new byte[1024];
+        int len = 0;
         try {
             URL realUrl = new URL(url + controller);
             // 打开和URL之间的连接
@@ -60,7 +116,7 @@ public class PropsServer {
             in = connection.getInputStream();
 
 
-            in.read(result);
+            len = in.read(temp);
 
         } catch (Exception e) {
             System.out.println("发送 POST 请求出现异常！");
@@ -77,7 +133,8 @@ public class PropsServer {
                 ex.printStackTrace();
             }
         }
-
+        byte[] result = new byte[len];
+        System.arraycopy(temp, 0, result, 0, len);
         return result;
     }
 
@@ -90,5 +147,60 @@ public class PropsServer {
 
         ProtoclProto.protocl protocl = ProtoclProto.protocl.parseFrom(result);
         System.out.println(protocl.getStatus());
+    }
+
+    public void showNoPick() throws InvalidProtocolBufferException {
+        builder.clear();
+
+        builder.setType(ProtoclProto.ProtoclType.C2S_ShowNoPick);
+
+        byte[] date = builder.build().toByteArray();
+        byte[] result = sendHttp(date, "showNoPick");
+
+        ProtoclProto.protocl protocl = ProtoclProto.protocl.parseFrom(result);
+
+        if (protocl.getType() != ProtoclProto.ProtoclType.S2C_ShowNoPick)
+            System.out.println("获取失败");
+
+        System.out.println(protocl.getProJson());
+    }
+
+    public void destroy(int id, int uid) throws InvalidProtocolBufferException {
+        builder.clear();
+
+        builder.setType(ProtoclProto.ProtoclType.C2S_Destroy);
+        builder.setId(id);
+        builder.setUid(uid);
+
+        byte[] date = builder.build().toByteArray();
+        byte[] result = sendHttp(date, "destroy");
+
+        ProtoclProto.protocl protocl = ProtoclProto.protocl.parseFrom(result);
+
+        if (protocl.getType() != ProtoclProto.ProtoclType.S2C_Destroy)
+            System.out.println("获取失败");
+
+        System.out.println(protocl.getStatus());
+        System.out.println(protocl.getProJson());
+    }
+
+    public void give(int id, int uid, int guid) throws InvalidProtocolBufferException {
+        builder.clear();
+
+        builder.setType(ProtoclProto.ProtoclType.C2S_Give);
+        builder.setId(id);
+        builder.setUid(uid);
+        builder.setGuid(guid);
+
+        byte[] date = builder.build().toByteArray();
+        byte[] result = sendHttp(date, "give");
+
+        ProtoclProto.protocl protocl = ProtoclProto.protocl.parseFrom(result);
+
+        if (protocl.getType() != ProtoclProto.ProtoclType.S2C_Give)
+            System.out.println("获取失败");
+
+        System.out.println(protocl.getStatus());
+        System.out.println(protocl.getProJson());
     }
 }

@@ -107,6 +107,38 @@ public final class ProtoclProto {
      * <code>S2C_Obtain = 10;</code>
      */
     S2C_Obtain(10),
+    /**
+     * <pre>
+     *展示我的物品
+     * </pre>
+     *
+     * <code>C2S_Show = 11;</code>
+     */
+    C2S_Show(11),
+    /**
+     * <pre>
+     *展示我的物品返回
+     * </pre>
+     *
+     * <code>S2C_Show = 12;</code>
+     */
+    S2C_Show(12),
+    /**
+     * <pre>
+     *展示未被拾取的装备
+     * </pre>
+     *
+     * <code>C2S_ShowNoPick = 13;</code>
+     */
+    C2S_ShowNoPick(13),
+    /**
+     * <pre>
+     *返回未被拾取等装备
+     * </pre>
+     *
+     * <code>S2C_ShowNoPick = 14;</code>
+     */
+    S2C_ShowNoPick(14),
     UNRECOGNIZED(-1),
     ;
 
@@ -198,6 +230,38 @@ public final class ProtoclProto {
      * <code>S2C_Obtain = 10;</code>
      */
     public static final int S2C_Obtain_VALUE = 10;
+    /**
+     * <pre>
+     *展示我的物品
+     * </pre>
+     *
+     * <code>C2S_Show = 11;</code>
+     */
+    public static final int C2S_Show_VALUE = 11;
+    /**
+     * <pre>
+     *展示我的物品返回
+     * </pre>
+     *
+     * <code>S2C_Show = 12;</code>
+     */
+    public static final int S2C_Show_VALUE = 12;
+    /**
+     * <pre>
+     *展示未被拾取的装备
+     * </pre>
+     *
+     * <code>C2S_ShowNoPick = 13;</code>
+     */
+    public static final int C2S_ShowNoPick_VALUE = 13;
+    /**
+     * <pre>
+     *返回未被拾取等装备
+     * </pre>
+     *
+     * <code>S2C_ShowNoPick = 14;</code>
+     */
+    public static final int S2C_ShowNoPick_VALUE = 14;
 
 
     public final int getNumber() {
@@ -235,6 +299,10 @@ public final class ProtoclProto {
         case 8: return S2C_Give;
         case 9: return C2S_Obtain;
         case 10: return S2C_Obtain;
+        case 11: return C2S_Show;
+        case 12: return S2C_Show;
+        case 13: return C2S_ShowNoPick;
+        case 14: return S2C_ShowNoPick;
         default: return null;
       }
     }
@@ -319,7 +387,16 @@ public final class ProtoclProto {
      *物品id
      * </pre>
      *
-     * <code>int32 id = 2;</code>
+     * <code>optional int32 id = 2;</code>
+     * @return Whether the id field is set.
+     */
+    boolean hasId();
+    /**
+     * <pre>
+     *物品id
+     * </pre>
+     *
+     * <code>optional int32 id = 2;</code>
      * @return The id.
      */
     int getId();
@@ -329,7 +406,16 @@ public final class ProtoclProto {
      *用户id
      * </pre>
      *
-     * <code>int32 uid = 3;</code>
+     * <code>optional int32 uid = 3;</code>
+     * @return Whether the uid field is set.
+     */
+    boolean hasUid();
+    /**
+     * <pre>
+     *用户id
+     * </pre>
+     *
+     * <code>optional int32 uid = 3;</code>
      * @return The uid.
      */
     int getUid();
@@ -339,7 +425,16 @@ public final class ProtoclProto {
      *返回状态
      * </pre>
      *
-     * <code>bool status = 4;</code>
+     * <code>optional bool status = 4;</code>
+     * @return Whether the status field is set.
+     */
+    boolean hasStatus();
+    /**
+     * <pre>
+     *返回状态
+     * </pre>
+     *
+     * <code>optional bool status = 4;</code>
      * @return The status.
      */
     boolean getStatus();
@@ -349,7 +444,16 @@ public final class ProtoclProto {
      *数据 道具数据或者错误信息。
      * </pre>
      *
-     * <code>string proJson = 5;</code>
+     * <code>optional string proJson = 5;</code>
+     * @return Whether the proJson field is set.
+     */
+    boolean hasProJson();
+    /**
+     * <pre>
+     *数据 道具数据或者错误信息。
+     * </pre>
+     *
+     * <code>optional string proJson = 5;</code>
      * @return The proJson.
      */
     String getProJson();
@@ -358,7 +462,7 @@ public final class ProtoclProto {
      *数据 道具数据或者错误信息。
      * </pre>
      *
-     * <code>string proJson = 5;</code>
+     * <code>optional string proJson = 5;</code>
      * @return The bytes for proJson.
      */
     com.google.protobuf.ByteString
@@ -369,7 +473,16 @@ public final class ProtoclProto {
      *给予用户id
      * </pre>
      *
-     * <code>int32 guid = 6;</code>
+     * <code>optional int32 guid = 6;</code>
+     * @return Whether the guid field is set.
+     */
+    boolean hasGuid();
+    /**
+     * <pre>
+     *给予用户id
+     * </pre>
+     *
+     * <code>optional int32 guid = 6;</code>
      * @return The guid.
      */
     int getGuid();
@@ -411,6 +524,7 @@ public final class ProtoclProto {
       if (extensionRegistry == null) {
         throw new NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -428,28 +542,28 @@ public final class ProtoclProto {
               break;
             }
             case 16: {
-
+              bitField0_ |= 0x00000001;
               id_ = input.readInt32();
               break;
             }
             case 24: {
-
+              bitField0_ |= 0x00000002;
               uid_ = input.readInt32();
               break;
             }
             case 32: {
-
+              bitField0_ |= 0x00000004;
               status_ = input.readBool();
               break;
             }
             case 42: {
               String s = input.readStringRequireUtf8();
-
+              bitField0_ |= 0x00000008;
               proJson_ = s;
               break;
             }
             case 48: {
-
+              bitField0_ |= 0x00000010;
               guid_ = input.readInt32();
               break;
             }
@@ -485,6 +599,7 @@ public final class ProtoclProto {
               protocl.class, Builder.class);
     }
 
+    private int bitField0_;
     public static final int TYPE_FIELD_NUMBER = 1;
     private int type_;
     /**
@@ -519,7 +634,19 @@ public final class ProtoclProto {
      *物品id
      * </pre>
      *
-     * <code>int32 id = 2;</code>
+     * <code>optional int32 id = 2;</code>
+     * @return Whether the id field is set.
+     */
+    @Override
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     *物品id
+     * </pre>
+     *
+     * <code>optional int32 id = 2;</code>
      * @return The id.
      */
     @Override
@@ -534,7 +661,19 @@ public final class ProtoclProto {
      *用户id
      * </pre>
      *
-     * <code>int32 uid = 3;</code>
+     * <code>optional int32 uid = 3;</code>
+     * @return Whether the uid field is set.
+     */
+    @Override
+    public boolean hasUid() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <pre>
+     *用户id
+     * </pre>
+     *
+     * <code>optional int32 uid = 3;</code>
      * @return The uid.
      */
     @Override
@@ -549,7 +688,19 @@ public final class ProtoclProto {
      *返回状态
      * </pre>
      *
-     * <code>bool status = 4;</code>
+     * <code>optional bool status = 4;</code>
+     * @return Whether the status field is set.
+     */
+    @Override
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <pre>
+     *返回状态
+     * </pre>
+     *
+     * <code>optional bool status = 4;</code>
      * @return The status.
      */
     @Override
@@ -564,7 +715,19 @@ public final class ProtoclProto {
      *数据 道具数据或者错误信息。
      * </pre>
      *
-     * <code>string proJson = 5;</code>
+     * <code>optional string proJson = 5;</code>
+     * @return Whether the proJson field is set.
+     */
+    @Override
+    public boolean hasProJson() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <pre>
+     *数据 道具数据或者错误信息。
+     * </pre>
+     *
+     * <code>optional string proJson = 5;</code>
      * @return The proJson.
      */
     @Override
@@ -585,7 +748,7 @@ public final class ProtoclProto {
      *数据 道具数据或者错误信息。
      * </pre>
      *
-     * <code>string proJson = 5;</code>
+     * <code>optional string proJson = 5;</code>
      * @return The bytes for proJson.
      */
     @Override
@@ -610,7 +773,19 @@ public final class ProtoclProto {
      *给予用户id
      * </pre>
      *
-     * <code>int32 guid = 6;</code>
+     * <code>optional int32 guid = 6;</code>
+     * @return Whether the guid field is set.
+     */
+    @Override
+    public boolean hasGuid() {
+      return ((bitField0_ & 0x00000010) != 0);
+    }
+    /**
+     * <pre>
+     *给予用户id
+     * </pre>
+     *
+     * <code>optional int32 guid = 6;</code>
      * @return The guid.
      */
     @Override
@@ -635,19 +810,19 @@ public final class ProtoclProto {
       if (type_ != ProtoclType.C2S_None.getNumber()) {
         output.writeEnum(1, type_);
       }
-      if (id_ != 0) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeInt32(2, id_);
       }
-      if (uid_ != 0) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeInt32(3, uid_);
       }
-      if (status_ != false) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeBool(4, status_);
       }
-      if (!getProJsonBytes().isEmpty()) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, proJson_);
       }
-      if (guid_ != 0) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         output.writeInt32(6, guid_);
       }
       unknownFields.writeTo(output);
@@ -663,22 +838,22 @@ public final class ProtoclProto {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, type_);
       }
-      if (id_ != 0) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, id_);
       }
-      if (uid_ != 0) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, uid_);
       }
-      if (status_ != false) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(4, status_);
       }
-      if (!getProJsonBytes().isEmpty()) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, proJson_);
       }
-      if (guid_ != 0) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(6, guid_);
       }
@@ -698,16 +873,31 @@ public final class ProtoclProto {
       protocl other = (protocl) obj;
 
       if (type_ != other.type_) return false;
-      if (getId()
-          != other.getId()) return false;
-      if (getUid()
-          != other.getUid()) return false;
-      if (getStatus()
-          != other.getStatus()) return false;
-      if (!getProJson()
-          .equals(other.getProJson())) return false;
-      if (getGuid()
-          != other.getGuid()) return false;
+      if (hasId() != other.hasId()) return false;
+      if (hasId()) {
+        if (getId()
+            != other.getId()) return false;
+      }
+      if (hasUid() != other.hasUid()) return false;
+      if (hasUid()) {
+        if (getUid()
+            != other.getUid()) return false;
+      }
+      if (hasStatus() != other.hasStatus()) return false;
+      if (hasStatus()) {
+        if (getStatus()
+            != other.getStatus()) return false;
+      }
+      if (hasProJson() != other.hasProJson()) return false;
+      if (hasProJson()) {
+        if (!getProJson()
+            .equals(other.getProJson())) return false;
+      }
+      if (hasGuid() != other.hasGuid()) return false;
+      if (hasGuid()) {
+        if (getGuid()
+            != other.getGuid()) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -721,17 +911,27 @@ public final class ProtoclProto {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + TYPE_FIELD_NUMBER;
       hash = (53 * hash) + type_;
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId();
-      hash = (37 * hash) + UID_FIELD_NUMBER;
-      hash = (53 * hash) + getUid();
-      hash = (37 * hash) + STATUS_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getStatus());
-      hash = (37 * hash) + PROJSON_FIELD_NUMBER;
-      hash = (53 * hash) + getProJson().hashCode();
-      hash = (37 * hash) + GUID_FIELD_NUMBER;
-      hash = (53 * hash) + getGuid();
+      if (hasId()) {
+        hash = (37 * hash) + ID_FIELD_NUMBER;
+        hash = (53 * hash) + getId();
+      }
+      if (hasUid()) {
+        hash = (37 * hash) + UID_FIELD_NUMBER;
+        hash = (53 * hash) + getUid();
+      }
+      if (hasStatus()) {
+        hash = (37 * hash) + STATUS_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getStatus());
+      }
+      if (hasProJson()) {
+        hash = (37 * hash) + PROJSON_FIELD_NUMBER;
+        hash = (53 * hash) + getProJson().hashCode();
+      }
+      if (hasGuid()) {
+        hash = (37 * hash) + GUID_FIELD_NUMBER;
+        hash = (53 * hash) + getGuid();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -868,15 +1068,15 @@ public final class ProtoclProto {
         type_ = 0;
 
         id_ = 0;
-
+        bitField0_ = (bitField0_ & ~0x00000001);
         uid_ = 0;
-
+        bitField0_ = (bitField0_ & ~0x00000002);
         status_ = false;
-
+        bitField0_ = (bitField0_ & ~0x00000004);
         proJson_ = "";
-
+        bitField0_ = (bitField0_ & ~0x00000008);
         guid_ = 0;
-
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -903,12 +1103,30 @@ public final class ProtoclProto {
       @Override
       public protocl buildPartial() {
         protocl result = new protocl(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
         result.type_ = type_;
-        result.id_ = id_;
-        result.uid_ = uid_;
-        result.status_ = status_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.id_ = id_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.uid_ = uid_;
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.status_ = status_;
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          to_bitField0_ |= 0x00000008;
+        }
         result.proJson_ = proJson_;
-        result.guid_ = guid_;
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.guid_ = guid_;
+          to_bitField0_ |= 0x00000010;
+        }
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -960,20 +1178,21 @@ public final class ProtoclProto {
         if (other.type_ != 0) {
           setTypeValue(other.getTypeValue());
         }
-        if (other.getId() != 0) {
+        if (other.hasId()) {
           setId(other.getId());
         }
-        if (other.getUid() != 0) {
+        if (other.hasUid()) {
           setUid(other.getUid());
         }
-        if (other.getStatus() != false) {
+        if (other.hasStatus()) {
           setStatus(other.getStatus());
         }
-        if (!other.getProJson().isEmpty()) {
+        if (other.hasProJson()) {
+          bitField0_ |= 0x00000008;
           proJson_ = other.proJson_;
           onChanged();
         }
-        if (other.getGuid() != 0) {
+        if (other.hasGuid()) {
           setGuid(other.getGuid());
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -1004,6 +1223,7 @@ public final class ProtoclProto {
         }
         return this;
       }
+      private int bitField0_;
 
       private int type_ = 0;
       /**
@@ -1085,7 +1305,19 @@ public final class ProtoclProto {
        *物品id
        * </pre>
        *
-       * <code>int32 id = 2;</code>
+       * <code>optional int32 id = 2;</code>
+       * @return Whether the id field is set.
+       */
+      @Override
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <pre>
+       *物品id
+       * </pre>
+       *
+       * <code>optional int32 id = 2;</code>
        * @return The id.
        */
       @Override
@@ -1097,12 +1329,12 @@ public final class ProtoclProto {
        *物品id
        * </pre>
        *
-       * <code>int32 id = 2;</code>
+       * <code>optional int32 id = 2;</code>
        * @param value The id to set.
        * @return This builder for chaining.
        */
       public Builder setId(int value) {
-        
+        bitField0_ |= 0x00000001;
         id_ = value;
         onChanged();
         return this;
@@ -1112,11 +1344,11 @@ public final class ProtoclProto {
        *物品id
        * </pre>
        *
-       * <code>int32 id = 2;</code>
+       * <code>optional int32 id = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearId() {
-        
+        bitField0_ = (bitField0_ & ~0x00000001);
         id_ = 0;
         onChanged();
         return this;
@@ -1128,7 +1360,19 @@ public final class ProtoclProto {
        *用户id
        * </pre>
        *
-       * <code>int32 uid = 3;</code>
+       * <code>optional int32 uid = 3;</code>
+       * @return Whether the uid field is set.
+       */
+      @Override
+      public boolean hasUid() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <pre>
+       *用户id
+       * </pre>
+       *
+       * <code>optional int32 uid = 3;</code>
        * @return The uid.
        */
       @Override
@@ -1140,12 +1384,12 @@ public final class ProtoclProto {
        *用户id
        * </pre>
        *
-       * <code>int32 uid = 3;</code>
+       * <code>optional int32 uid = 3;</code>
        * @param value The uid to set.
        * @return This builder for chaining.
        */
       public Builder setUid(int value) {
-        
+        bitField0_ |= 0x00000002;
         uid_ = value;
         onChanged();
         return this;
@@ -1155,11 +1399,11 @@ public final class ProtoclProto {
        *用户id
        * </pre>
        *
-       * <code>int32 uid = 3;</code>
+       * <code>optional int32 uid = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearUid() {
-        
+        bitField0_ = (bitField0_ & ~0x00000002);
         uid_ = 0;
         onChanged();
         return this;
@@ -1171,7 +1415,19 @@ public final class ProtoclProto {
        *返回状态
        * </pre>
        *
-       * <code>bool status = 4;</code>
+       * <code>optional bool status = 4;</code>
+       * @return Whether the status field is set.
+       */
+      @Override
+      public boolean hasStatus() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <pre>
+       *返回状态
+       * </pre>
+       *
+       * <code>optional bool status = 4;</code>
        * @return The status.
        */
       @Override
@@ -1183,12 +1439,12 @@ public final class ProtoclProto {
        *返回状态
        * </pre>
        *
-       * <code>bool status = 4;</code>
+       * <code>optional bool status = 4;</code>
        * @param value The status to set.
        * @return This builder for chaining.
        */
       public Builder setStatus(boolean value) {
-        
+        bitField0_ |= 0x00000004;
         status_ = value;
         onChanged();
         return this;
@@ -1198,11 +1454,11 @@ public final class ProtoclProto {
        *返回状态
        * </pre>
        *
-       * <code>bool status = 4;</code>
+       * <code>optional bool status = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearStatus() {
-        
+        bitField0_ = (bitField0_ & ~0x00000004);
         status_ = false;
         onChanged();
         return this;
@@ -1214,7 +1470,18 @@ public final class ProtoclProto {
        *数据 道具数据或者错误信息。
        * </pre>
        *
-       * <code>string proJson = 5;</code>
+       * <code>optional string proJson = 5;</code>
+       * @return Whether the proJson field is set.
+       */
+      public boolean hasProJson() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <pre>
+       *数据 道具数据或者错误信息。
+       * </pre>
+       *
+       * <code>optional string proJson = 5;</code>
        * @return The proJson.
        */
       public String getProJson() {
@@ -1234,7 +1501,7 @@ public final class ProtoclProto {
        *数据 道具数据或者错误信息。
        * </pre>
        *
-       * <code>string proJson = 5;</code>
+       * <code>optional string proJson = 5;</code>
        * @return The bytes for proJson.
        */
       public com.google.protobuf.ByteString
@@ -1255,7 +1522,7 @@ public final class ProtoclProto {
        *数据 道具数据或者错误信息。
        * </pre>
        *
-       * <code>string proJson = 5;</code>
+       * <code>optional string proJson = 5;</code>
        * @param value The proJson to set.
        * @return This builder for chaining.
        */
@@ -1264,7 +1531,7 @@ public final class ProtoclProto {
         if (value == null) {
     throw new NullPointerException();
   }
-  
+  bitField0_ |= 0x00000008;
         proJson_ = value;
         onChanged();
         return this;
@@ -1274,11 +1541,11 @@ public final class ProtoclProto {
        *数据 道具数据或者错误信息。
        * </pre>
        *
-       * <code>string proJson = 5;</code>
+       * <code>optional string proJson = 5;</code>
        * @return This builder for chaining.
        */
       public Builder clearProJson() {
-        
+        bitField0_ = (bitField0_ & ~0x00000008);
         proJson_ = getDefaultInstance().getProJson();
         onChanged();
         return this;
@@ -1288,7 +1555,7 @@ public final class ProtoclProto {
        *数据 道具数据或者错误信息。
        * </pre>
        *
-       * <code>string proJson = 5;</code>
+       * <code>optional string proJson = 5;</code>
        * @param value The bytes for proJson to set.
        * @return This builder for chaining.
        */
@@ -1298,7 +1565,7 @@ public final class ProtoclProto {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        
+        bitField0_ |= 0x00000008;
         proJson_ = value;
         onChanged();
         return this;
@@ -1310,7 +1577,19 @@ public final class ProtoclProto {
        *给予用户id
        * </pre>
        *
-       * <code>int32 guid = 6;</code>
+       * <code>optional int32 guid = 6;</code>
+       * @return Whether the guid field is set.
+       */
+      @Override
+      public boolean hasGuid() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <pre>
+       *给予用户id
+       * </pre>
+       *
+       * <code>optional int32 guid = 6;</code>
        * @return The guid.
        */
       @Override
@@ -1322,12 +1601,12 @@ public final class ProtoclProto {
        *给予用户id
        * </pre>
        *
-       * <code>int32 guid = 6;</code>
+       * <code>optional int32 guid = 6;</code>
        * @param value The guid to set.
        * @return This builder for chaining.
        */
       public Builder setGuid(int value) {
-        
+        bitField0_ |= 0x00000010;
         guid_ = value;
         onChanged();
         return this;
@@ -1337,11 +1616,11 @@ public final class ProtoclProto {
        *给予用户id
        * </pre>
        *
-       * <code>int32 guid = 6;</code>
+       * <code>optional int32 guid = 6;</code>
        * @return This builder for chaining.
        */
       public Builder clearGuid() {
-        
+        bitField0_ = (bitField0_ & ~0x00000010);
         guid_ = 0;
         onChanged();
         return this;
@@ -1413,15 +1692,19 @@ public final class ProtoclProto {
       descriptor;
   static {
     String[] descriptorData = {
-      "\n\rprotocl.proto\"m\n\007protocl\022\032\n\004type\030\001 \001(\016" +
-      "2\014.ProtoclType\022\n\n\002id\030\002 \001(\005\022\013\n\003uid\030\003 \001(\005\022" +
-      "\016\n\006status\030\004 \001(\010\022\017\n\007proJson\030\005 \001(\t\022\014\n\004guid" +
-      "\030\006 \001(\005*\263\001\n\013ProtoclType\022\014\n\010C2S_None\020\000\022\014\n\010" +
-      "C2S_Pick\020\001\022\014\n\010S2C_Pick\020\002\022\r\n\tC2S_Throw\020\003\022" +
-      "\r\n\tS2C_Throw\020\004\022\017\n\013C2S_Destroy\020\005\022\017\n\013S2C_D" +
-      "estroy\020\006\022\014\n\010C2S_Give\020\007\022\014\n\010S2C_Give\020\010\022\016\n\n" +
-      "C2S_Obtain\020\t\022\016\n\nS2C_Obtain\020\nB\034\n\014yxl.day4" +
-      ".dtoB\014ProtoclProtob\006proto3"
+      "\n\rprotocl.proto\"\265\001\n\007protocl\022\032\n\004type\030\001 \001(" +
+      "\0162\014.ProtoclType\022\017\n\002id\030\002 \001(\005H\000\210\001\001\022\020\n\003uid\030" +
+      "\003 \001(\005H\001\210\001\001\022\023\n\006status\030\004 \001(\010H\002\210\001\001\022\024\n\007proJs" +
+      "on\030\005 \001(\tH\003\210\001\001\022\021\n\004guid\030\006 \001(\005H\004\210\001\001B\005\n\003_idB" +
+      "\006\n\004_uidB\t\n\007_statusB\n\n\010_proJsonB\007\n\005_guid*" +
+      "\367\001\n\013ProtoclType\022\014\n\010C2S_None\020\000\022\014\n\010C2S_Pic" +
+      "k\020\001\022\014\n\010S2C_Pick\020\002\022\r\n\tC2S_Throw\020\003\022\r\n\tS2C_" +
+      "Throw\020\004\022\017\n\013C2S_Destroy\020\005\022\017\n\013S2C_Destroy\020" +
+      "\006\022\014\n\010C2S_Give\020\007\022\014\n\010S2C_Give\020\010\022\016\n\nC2S_Obt" +
+      "ain\020\t\022\016\n\nS2C_Obtain\020\n\022\014\n\010C2S_Show\020\013\022\014\n\010S" +
+      "2C_Show\020\014\022\022\n\016C2S_ShowNoPick\020\r\022\022\n\016S2C_Sho" +
+      "wNoPick\020\016B\034\n\014yxl.day4.dtoB\014ProtoclProtob" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1432,7 +1715,7 @@ public final class ProtoclProto {
     internal_static_protocl_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protocl_descriptor,
-        new String[] { "Type", "Id", "Uid", "Status", "ProJson", "Guid", });
+        new String[] { "Type", "Id", "Uid", "Status", "ProJson", "Guid", "Id", "Uid", "Status", "ProJson", "Guid", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

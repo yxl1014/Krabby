@@ -16,15 +16,24 @@ public interface PropsMapper {
     @Select("SELECT COUNT(1) FROM props WHERE id = #{id} AND ownership = #{ownership}")
     Integer findCountByIdAndOwnership(@Param("id") int id, @Param("ownership") int ownership);
 
+    @Select("SELECT id,name,level,ownership,gold,isPick FROM props WHERE id = #{id}")
+    Props findPropsById(@Param("id") int id);
+
     @Update("UPDATE props SET ownership = #{ownership} WHERE id = #{id}")
     Integer updateOwnershipById(@Param("ownership") int ownership, @Param("id") int id);
 
     @Update("UPDATE props SET isPick = #{isPick} WHERE id = #{id}")
-    Integer updateIsPickById(@Param("isPick")boolean isPick,@Param("id") int id);
+    Integer updateIsPickById(@Param("isPick") boolean isPick, @Param("id") int id);
 
     @Insert("INSERT INTO props(name,level,ownership,gold) values(#{name},#{level},#{ownership},#{gold})")
-    int insertProps(@Param("name")String name,@Param("level") int level,@Param("ownership") int ownership,@Param("gold") int gold);
+    int insertProps(@Param("name") String name, @Param("level") int level, @Param("ownership") int ownership, @Param("gold") int gold);
 
-    @Select("SELECT id,name,level,ownership,gold,isPick FROM props WHERE ownership = #{ownership}")
-    List<Props> findPropsByUidAndNoPick(@Param("ownership")int ownership);
+    @Select("SELECT id,name,level,ownership,gold,isPick FROM props WHERE ownership = #{ownership} AND isPick = #{isPick}")
+    List<Props> findPropsByUidAndPick(@Param("ownership") int ownership, @Param("isPick") boolean isPick);
+
+    @Select("SELECT isPick FROM props WHERE id = #{id}")
+    boolean isPick(int id);
+
+    @Select("SELECT id,name,level,ownership,gold,isPick FROM props WHERE isPick = #{isPick}")
+    List<Props> findPropsByPick(@Param("isPick") boolean isPick);
 }

@@ -12,4 +12,8 @@ public interface PropsService {
     byte[] give(int id, int uid, int guid);
 
     byte[] obtain(int uid);
+
+    byte[] show(int uid);
+
+    byte[] showNoPick();
 }

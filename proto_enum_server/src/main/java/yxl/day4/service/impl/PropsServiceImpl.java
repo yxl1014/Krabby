@@ -31,25 +31,31 @@ public class PropsServiceImpl implements PropsService {
 
         ProtoclProto.protocl.Builder builder = ProtoclProto.protocl.newBuilder();
         builder.setStatus(true);
+        builder.setType(ProtoclProto.ProtoclType.S2C_Destroy);
 
         return builder.build().toByteArray();
     }
 
     @Override
     public byte[] pick(int id, int uid) {
-        //TODO:uid is exist?
         //TODO:id is exist?
-        ProtoclProto.protocl.Builder builder = ProtoclProto.protocl.newBuilder();
-        Integer num = propsMapper.findCountByIdAndOwnership(id, 0);
 
-        if (num <= 0) {
+        ProtoclProto.protocl.Builder builder = ProtoclProto.protocl.newBuilder();
+        Props props = propsMapper.findPropsById(id);
+
+        if (props == null) {
             builder.setStatus(false);
-            builder.setProJson("物品已被获取或已被清除");
-        } else {
+            builder.setProJson("物品已被清除");
+        } else if (!props.isPick()) {
             Integer ok = propsMapper.updateOwnershipById(uid, id);
             Integer ok1 = propsMapper.updateIsPickById(true, id);
             builder.setStatus(ok + ok1 >= 1);
+            builder.setProJson("拾取成功");
+        } else {
+            builder.setStatus(false);
+            builder.setProJson("物品已被拾取");
         }
+
         builder.setType(ProtoclProto.ProtoclType.S2C_Pick);
 
         return builder.build().toByteArray();
@@ -57,15 +63,21 @@ public class PropsServiceImpl implements PropsService {
 
     @Override
     public byte[] pthrow(int id, int uid) {
-
         //TODO:uid is exist?
-        //TODO:id is exist?
-        ProtoclProto.protocl.Builder builder = ProtoclProto.protocl.newBuilder();
-        Integer num = propsMapper.findCountByIdAndOwnership(id, uid);
 
-        if (num == 0) {
+        ProtoclProto.protocl.Builder builder = ProtoclProto.protocl.newBuilder();
+        Props props = propsMapper.findPropsById(id);
+
+
+        if (props == null) {
             builder.setStatus(false);
-            builder.setProJson("你没有该物品");
+            builder.setProJson("该物品不存在");
+        } else if (!props.isPick()) {
+            builder.setStatus(false);
+            builder.setProJson("该物品没有被拾取");
+        } else if (!(props.getOwnership() == uid)) {
+            builder.setStatus(false);
+            builder.setProJson("该物品没有被拾取");
         } else {
             Integer ok = propsMapper.updateOwnershipById(0, id);
             Integer ok1 = propsMapper.updateIsPickById(false, id);
@@ -79,14 +91,19 @@ public class PropsServiceImpl implements PropsService {
     @Override
     public byte[] destroy(int id, int uid) {
         //TODO:uid is exist?
-        //TODO:id is exist?
         ProtoclProto.protocl.Builder builder = ProtoclProto.protocl.newBuilder();
 
-        Integer num = propsMapper.findCountByIdAndOwnership(id, uid);
+        Props props = propsMapper.findPropsById(id);
 
-        if (num == 0) {
+        if (props == null) {
+            builder.setStatus(false);
+            builder.setProJson("该物品不存在");
+        } else if (props.getOwnership() != uid) {
             builder.setStatus(false);
             builder.setProJson("该物品不属于你");
+        } else if (!props.isPick()) {
+            builder.setStatus(false);
+            builder.setProJson("该物品没有被拾取");
         } else {
             Integer ok = propsMapper.deleteById(id);
             builder.setStatus(ok == 1);
@@ -99,16 +116,21 @@ public class PropsServiceImpl implements PropsService {
     @Override
     public byte[] give(int id, int uid, int guid) {
         //TODO:uid is exist?
-        //TODO:id is exist?
         //TODO:guid is exist?
 
         ProtoclProto.protocl.Builder builder = ProtoclProto.protocl.newBuilder();
 
-        Integer num = propsMapper.findCountByIdAndOwnership(id, uid);
+        Props props = propsMapper.findPropsById(id);
 
-        if (num == 0) {
+        if (props == null) {
+            builder.setStatus(false);
+            builder.setProJson("该物品不存在");
+        } else if (props.getOwnership() != uid) {
             builder.setStatus(false);
             builder.setProJson("该物品不属于你");
+        } else if (!props.isPick()) {
+            builder.setStatus(false);
+            builder.setProJson("该物品没有被拾取");
         } else {
             Integer ok = propsMapper.updateOwnershipById(guid, id);
             builder.setStatus(ok == 1);
@@ -132,9 +154,36 @@ public class PropsServiceImpl implements PropsService {
             propsMapper.insertProps(p.getName(), p.getLevel(), p.getOwnership(), p.getGold());
         }
 
-        List<Props> props = propsMapper.findPropsByUidAndNoPick(uid);
+        List<Props> props = propsMapper.findPropsByUidAndPick(uid, false);
         builder.setStatus(i == num);
         builder.setType(ProtoclProto.ProtoclType.S2C_Obtain);
+        builder.setProJson(new Gson().toJson(props));
+
+        return builder.build().toByteArray();
+    }
+
+    @Override
+    public byte[] show(int uid) {
+
+        ProtoclProto.protocl.Builder builder = ProtoclProto.protocl.newBuilder();
+
+        List<Props> props = propsMapper.findPropsByUidAndPick(uid, true);
+
+        builder.setStatus(true);
+        builder.setType(ProtoclProto.ProtoclType.S2C_Show);
+        builder.setProJson(new Gson().toJson(props));
+
+        return builder.build().toByteArray();
+    }
+
+    @Override
+    public byte[] showNoPick() {
+        ProtoclProto.protocl.Builder builder = ProtoclProto.protocl.newBuilder();
+
+        List<Props> props = propsMapper.findPropsByPick(false);
+
+        builder.setStatus(true);
+        builder.setType(ProtoclProto.ProtoclType.S2C_ShowNoPick);
         builder.setProJson(new Gson().toJson(props));
 
         return builder.build().toByteArray();

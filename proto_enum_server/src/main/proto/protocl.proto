@@ -17,13 +17,17 @@ enum ProtoclType{
   S2C_Give = 8;//给别人返回
   C2S_Obtain = 9;//获取道具掉落信息
   S2C_Obtain = 10;//掉落信息返回
+  C2S_Show = 11;//展示我的物品
+  S2C_Show = 12;//展示我的物品返回
+  C2S_ShowNoPick = 13;//展示未被拾取的装备
+  S2C_ShowNoPick = 14;//返回未被拾取等装备
 }
 
 message protocl{
   ProtoclType type = 1;//协议类型
-  int32 id = 2;//物品id
-  int32 uid = 3;//用户id
-  bool status = 4;//返回状态
-  string proJson = 5;//数据 道具数据或者错误信息。
-  int32 guid = 6;//给予用户id
+  optional int32 id = 2;//物品id
+  optional int32 uid = 3;//用户id
+  optional bool status = 4;//返回状态
+  optional string proJson = 5;//数据 道具数据或者错误信息。
+  optional int32 guid = 6;//给予用户id
 }
